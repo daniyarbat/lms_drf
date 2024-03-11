@@ -42,7 +42,7 @@ class Lesson(models.Model):
 class CourseSubscription(models.Model):
     is_subscribed = models.BooleanField(default=False, verbose_name='подписка', **NULLABLE)
     course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='курс', related_name='subscription')
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='пользователь', on_delete=models.CASCADE,
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='пользователь', on_delete=models.CASCADE,
                              related_name='course_user', **NULLABLE)
 
     def __str__(self):

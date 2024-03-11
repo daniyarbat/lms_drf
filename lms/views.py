@@ -62,20 +62,20 @@ class LessonDestroyAPIView(generics.DestroyAPIView):
 
 class SubscriptionCreateAPIView(generics.CreateAPIView):
     serializer_class = SubscribeSerializer
-    permission_classes = [IsAuthenticated, IsModerator]
+    permission_classes = [IsAuthenticated, IsModerator | IsOwner]
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        serializer.save(owner=self.request.user)
 
 
 class SubscriptionListAPIView(generics.ListAPIView):
     serializer_class = SubscribeSerializer
 
     def get_queryset(self):
-        return CourseSubscription.objects.filter(user=self.request.user)
+        return CourseSubscription.objects.filter(owner=self.request.user)
 
 
 class SubscriptionDestroyAPIView(generics.DestroyAPIView):
     serializer_class = SubscribeSerializer
     queryset = CourseSubscription.objects.all()
-    permission_classes = [IsAuthenticated, IsModerator]
+    permission_classes = [IsAuthenticated, IsModerator | IsOwner]

@@ -19,7 +19,7 @@ class CourseSerializer(serializers.ModelSerializer):
         return instance.lessons.count()
 
     def get_subscription(self, instance):
-        return CourseSubscription.objects.filter(course=instance, user=self.context['request'].user).exists()
+        return CourseSubscription.objects.filter(course=instance, owner=self.context['request'].user).exists()
 
     class Meta:
         model = Course
@@ -31,6 +31,4 @@ class SubscribeSerializer(serializers.ModelSerializer):
     class Meta:
         model = CourseSubscription
         fields = '__all__'
-        validators = [
-            serializers.UniqueTogetherValidator(fields=['course'], queryset=CourseSubscription.objects.all())
-        ]
+        extra_kwargs = {'is_subscribed': {'default': True}}
