@@ -6,7 +6,7 @@ from lms.validators import UrlValidator
 class LessonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Lesson
-        fields = '__all__'
+        fields = ['id', 'title', 'description', 'preview', 'link', 'course', 'owner', 'price']
         validators = [UrlValidator(url='link')]
 
 
@@ -23,7 +23,7 @@ class CourseSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Course
-        fields = '__all__'
+        fields = ['id', 'title', 'description', 'subscription', 'lessons_count', 'lessons', 'price']
 
 
 class SubscribeSerializer(serializers.ModelSerializer):
