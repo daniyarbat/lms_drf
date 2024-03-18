@@ -54,4 +54,3 @@ class Payment(models.Model):
         verbose_name = 'оплата'
         verbose_name_plural = 'оплаты'
         ordering = ('user', 'payment_date')
-
